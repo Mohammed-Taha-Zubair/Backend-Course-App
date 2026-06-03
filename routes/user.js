@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { userModel } = require("../db");
+const { userJwtPassword } = require("../config");
 const userRouter = Router();
 const jwt = require("jsonwebtoken");
-const jwtPassword = "aponvok12";
 
 userRouter.post("/signup", async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
@@ -24,7 +24,7 @@ userRouter.post("/signin", async (req, res) => {
   const user = await userModel.findOne({ email: email, password: password });
 
   if (user) {
-    const token = jwt.sign({ id: user._id }, jwtPassword);
+    const token = jwt.sign({ id: user._id }, userJwtPassword);
     res.json({
       token,
     });
