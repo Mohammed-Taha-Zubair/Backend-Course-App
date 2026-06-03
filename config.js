@@ -1,5 +1,5 @@
-const userJwtPassword = "aponvok12";
-const adminJwtPassword = "admin1221";
+const userJwtPassword = process.env.userJwtPassword;
+const adminJwtPassword = process.env.adminJwtPassword;
 
 module.exports = {
   userJwtPassword,

@@ -6,6 +6,7 @@ const adminMiddleware = async (req, res, next) => {
   const decoded = jwt.verify(token, adminJwtPassword);
   if (decoded) {
     req.adminId = decoded.id;
+    console.log("Got till here");
     next();
   } else {
     res.status(403).json({
