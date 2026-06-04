@@ -36,6 +36,7 @@ adminRouter.post("/signin", async (req, res) => {
     });
   }
 });
+
 //create a course
 adminRouter.post("/course", adminMiddleware, async (req, res) => {
   const adminId = req.adminId;
@@ -43,10 +44,10 @@ adminRouter.post("/course", adminMiddleware, async (req, res) => {
   const { title, description, imageUrl, price } = req.body;
 
   const course = await courseModel.create({
-    title,
-    description,
-    imageUrl,
-    price,
+    title: title,
+    description: description,
+    imageUrl: imageUrl,
+    price: price,
     creatorId: adminId,
   });
 
@@ -56,8 +57,8 @@ adminRouter.post("/course", adminMiddleware, async (req, res) => {
   });
 });
 //update a course
-adminRouter.put("/course", adminMiddleware, async (req, res) => {
-  const { adminId } = req.adminId;
+adminRouter.put("/course/update", adminMiddleware, async (req, res) => {
+  const adminId = req.adminId;
   const { courseId, title, description, imageUrl, price } = req.body;
 
   const course = await courseModel.updateOne(
@@ -75,11 +76,11 @@ adminRouter.put("/course", adminMiddleware, async (req, res) => {
 
   res.json({
     message: "Course updated",
-    courseId: course._id,
+    courseId,
   });
 });
 
-adminRouter.get("/course", adminMiddleware, async (req, res) => {
+adminRouter.get("/courses/all", adminMiddleware, async (req, res) => {
   const adminId = req.adminId;
   const courses = await courseModel.find({
     creatorId: adminId,
